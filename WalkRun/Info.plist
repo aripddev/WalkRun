@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>STRAVA_CLIENT_ID</key>
+    <string>$(STRAVA_CLIENT_ID)</string>
+    <key>STRAVA_CLIENT_SECRET</key>
+    <string>$(STRAVA_CLIENT_SECRET)</string>
+    <key>STRAVA_REDIRECT_URI</key>
+    <string>$(STRAVA_REDIRECT_URI)</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>walkrun</string>
+            </array>
+        </dict>
+    </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>WalkRun needs your location to track your movement while walking or running.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>WalkRun needs your location to track your movement while walking or running, even when the app is in the background.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>WalkRun needs your location to track your movement while walking or running, even when the app is in the background.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
+</dict>
+</plist> 
