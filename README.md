@@ -21,17 +21,21 @@ A simple iOS app for tracking walking and running activities with Strava integra
 
 1. Create a Strava API application at https://www.strava.com/settings/api
 2. Set the following in your Strava API application settings:
-   - Authorization Callback Domain: `walkrun`
-3. Set up environment variables in Xcode:
-   - Open the project in Xcode
-   - Click on the scheme selector (next to the run/stop buttons)
-   - Select "Edit Scheme..."
-   - Select "Run" from the left sidebar
-   - Select the "Arguments" tab
-   - Under "Environment Variables", add:
-     - `STRAVA_CLIENT_ID` = your Strava Client ID
-     - `STRAVA_CLIENT_SECRET` = your Strava Client Secret
-     - `STRAVA_REDIRECT_URI` = your Strava Redirect Uri
+   - Authorization Callback Domain: The domain name of your `redirect_uri`. For example, if your `redirect_uri` is `https://subdomain.example.com/strava/callback`, then the Authorization Callback Domain should be `subdomain.example.com`.
+
+### Environment Variables
+
+Instead of setting environment variables directly in Xcode, use the `Secrets.xcconfig` file for better security and maintainability. Follow these steps:
+
+1. Duplicate the `Secrets.xcconfig.example` file and rename it to `Secrets.xcconfig`.
+2. Open the `Secrets.xcconfig` file and set the following values:
+   ```
+   STRAVA_CLIENT_ID = your_strava_client_id
+   STRAVA_CLIENT_SECRET = your_strava_client_secret
+   STRAVA_REDIRECT_URI = your_strava_redirect_uri
+   ```
+3. Ensure `Secrets.xcconfig` is excluded from version control (already handled in `.gitignore`).
+4. The app will automatically load these values from `Secrets.xcconfig` via `Info.plist`.
 
 ### Installation
 
@@ -42,10 +46,27 @@ A simple iOS app for tracking walking and running activities with Strava integra
 
 ## Usage
 
-1. Start tracking your activity by tapping "Start Tracking"
-2. Your location will be recorded in the background
-3. Stop tracking when you're done
-4. Export your activity as a GPX file or sync it with Strava
+1. Tap "Start Tracking" to begin recording your activity.
+2. Your location will be tracked in the background while the activity is ongoing.
+3. Tap "Stop Tracking" when you finish your activity.
+4. Export your activity as a GPX file for external use or backup.
+5. Sync your activity with Strava by tapping "Sync with Strava" to upload it directly.
+
+## Debugging
+
+If you encounter issues with the `redirect_uri`, ensure the following:
+
+- The `STRAVA_REDIRECT_URI` in your `Secrets.xcconfig` matches the value registered in the Strava Developer Portal.
+- The `redirect_uri` is correctly encoded in the app. You can debug this by printing the resolved value in the app logs.
+
+## Troubleshooting
+
+### Common Errors
+
+- **"invalid redirect_uri"**:
+  - Ensure the `redirect_uri` in the Strava Developer Portal matches the value sent by the app.
+  - Double-check the encoding of the `redirect_uri` in the app.
+  - Verify that the `STRAVA_REDIRECT_URI` is correctly set in `Secrets.xcconfig` and referenced in `Info.plist`.
 
 ## Privacy
 
@@ -53,4 +74,4 @@ WalkRun requires location access to track your activities. Your location data is
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
