@@ -45,7 +45,7 @@ struct MapView: UIViewRepresentable {
             if let polyline = overlay as? MKPolyline {
                 let renderer = MKPolylineRenderer(polyline: polyline)
                 renderer.strokeColor = .blue
-                renderer.lineWidth = 3
+                renderer.lineWidth = 4
                 return renderer
             }
             return MKOverlayRenderer()
@@ -62,9 +62,11 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 16) {
                 MapView(region: $region, locations: $locationManager.locations)
                     .frame(height: 300)
+                    .cornerRadius(15)
+                    .shadow(radius: 5)
 
                 if let currentLocation = locationManager.locations.last {
                     VStack(alignment: .leading, spacing: 8) {
@@ -76,7 +78,7 @@ struct ContentView: View {
                             .background(Color.blue.opacity(0.1))
                             .cornerRadius(10)
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
 
                 List {
@@ -84,6 +86,7 @@ struct ContentView: View {
                         LocationRow(location: location)
                     }
                 }
+                .listStyle(InsetGroupedListStyle())
 
                 Spacer()
 
@@ -101,14 +104,16 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity)
                         .background(locationManager.isTracking ? Color.red : Color.green)
                         .cornerRadius(10)
+                        .shadow(radius: 5)
                 }
-                .padding()
+                .padding(.horizontal)
             }
             .navigationTitle("WalkRun")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: SettingsView()) {
                         Image(systemName: "gear")
+                            .foregroundColor(.blue)
                     }
                 }
             }
